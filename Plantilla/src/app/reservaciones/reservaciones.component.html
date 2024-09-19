@@ -1,1 +1,32 @@
-<p>reservaciones works!</p>
+<div class="reservaciones-container">
+    <h1>Reservaciones</h1>
+  
+    <button (click)="crearReserva()" class="btn btn-primary">Nueva Reserva</button>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Evento</th>
+          <th>Fecha</th>
+          <th>Ubicación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reserva of reservas">
+          <td>{{ reserva.reserva_id }}</td>
+          <td>{{ reserva.cliente_nombre }}</td>
+          <td>{{ reserva.evento_nombre }}</td>
+          <td>{{ reserva.fecha | date:'shortDate' }}</td>
+          <td>{{ reserva.ubicacion }}</td>
+          <td>
+            <button (click)="verDetalles(reserva)" class="btn btn-info">Detalles</button>
+            <button (click)="eliminarReserva(reserva.reserva_id)" class="btn btn-danger">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
