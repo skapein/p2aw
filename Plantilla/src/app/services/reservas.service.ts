@@ -6,7 +6,7 @@ import { IReserva } from '../interfaces/ireserva'; // Asegúrate de definir la i
 @Injectable({
   providedIn: 'root'
 })
-export class ReservasService {
+export class ReservaService {
   apiurl = 'http://localhost/p2aw/controller/reservas.controller.php?op='; // Ajusta la URL según tu configuración
 
   constructor(private lector: HttpClient) {}
