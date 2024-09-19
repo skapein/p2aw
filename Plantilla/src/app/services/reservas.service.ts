@@ -7,45 +7,47 @@ import { IReserva } from '../interfaces/ireserva'; // Asegúrate de definir la i
   providedIn: 'root'
 })
 export class ReservaService {
-  apiurl = 'http://localhost/p2aw/controller/reservas.controller.php?op='; // Ajusta la URL según tu configuración
+  private apiurl = 'http://localhost/p2aw/controller/reservas.controller.php?op='; // Ajusta la ruta según tu proyecto
 
-  constructor(private lector: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-  // Obtener todas las reservaciones
-  todas(): Observable<IReserva[]> {
-    return this.lector.get<IReserva[]>(this.apiurl + 'todas');
+  // Método para crear una nueva reserva
+  crearReserva(reserva: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('evento_id', reserva.evento_id);
+    formData.append('cliente_id', reserva.cliente_id);
+    formData.append('fecha_reservacion', reserva.fecha_reservacion);
+
+    return this.http.post(this.apiurl + 'insertar', formData);
   }
 
-  // Obtener una reservación específica por ID
-  una(id: number): Observable<IReserva> {
-    const formData = new FormData();
-    formData.append('id', id.toString());
-    return this.lector.post<IReserva>(this.apiurl + 'una', formData);
+  // Método para obtener todas las reservas
+  obtenerReservas(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiurl + 'todos');
   }
 
-  // Eliminar una reservación
-  eliminar(id: number): Observable<number> {
+  // Método para obtener una reserva por ID
+  obtenerReservaPorId(reservacion_id: number): Observable<any> {
     const formData = new FormData();
-    formData.append('id', id.toString());
-    return this.lector.post<number>(this.apiurl + 'eliminar', formData);
+    formData.append('reservacion_id', reservacion_id.toString());
+    return this.http.post<any>(this.apiurl + 'uno', formData);
   }
 
-  // Insertar una nueva reservación
-  insertar(reserva: IReserva): Observable<string> {
+  // Método para actualizar una reserva
+  actualizarReserva(reserva: any): Observable<any> {
     const formData = new FormData();
-    formData.append('evento_id', reserva.evento_id.toString());
-    formData.append('cliente_id', reserva.cliente_id.toString());
-    // Puedes agregar otros campos si es necesario
-    return this.lector.post<string>(this.apiurl + 'insertar', formData);
+    formData.append('reservacion_id', reserva.reservacion_id);
+    formData.append('evento_id', reserva.evento_id);
+    formData.append('cliente_id', reserva.cliente_id);
+    formData.append('fecha_reservacion', reserva.fecha_reservacion);
+
+    return this.http.post(this.apiurl + 'actualizar', formData);
   }
 
-  // Actualizar una reservación existente
-  actualizar(reserva: IReserva): Observable<string> {
+  // Método para eliminar una reserva
+  eliminarReserva(reservacion_id: number): Observable<any> {
     const formData = new FormData();
-    formData.append('reservacion_id', reserva.reservacion_id.toString());
-    formData.append('evento_id', reserva.evento_id.toString());
-    formData.append('cliente_id', reserva.cliente_id.toString());
-    // Puedes agregar otros campos si es necesario
-    return this.lector.post<string>(this.apiurl + 'actualizar', formData);
+    formData.append('reservacion_id', reservacion_id.toString());
+    return this.http.post(this.apiurl + 'eliminar', formData);
   }
 }

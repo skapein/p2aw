@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReservaService } from 'src/app/services/reservas.service'; // Asegúrate de que la ruta sea correcta
+import { ReservaService } from 'src/app/services/reservas.service'; 
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-nuevareserva',
   templateUrl: './nuevareserva.component.html',
-  styleUrls: ['./nuevareserva.component.css']
+  styleUrls: ['./nuevareserva.component.scss']
 })
 export class NuevaReservaComponent implements OnInit {
   reservaForm: FormGroup;
@@ -19,10 +20,9 @@ export class NuevaReservaComponent implements OnInit {
 
   ngOnInit(): void {
     this.reservaForm = this.fb.group({
-      cliente_id: [null, Validators.required],
       evento_id: [null, Validators.required],
-      fecha: [null, Validators.required],
-      ubicacion: [null, Validators.required]
+      cliente_id: [null, Validators.required],
+      fecha_reservacion: [null, Validators.required]
     });
   }
 
@@ -30,15 +30,16 @@ export class NuevaReservaComponent implements OnInit {
     if (this.reservaForm.valid) {
       this.reservaService.crearReserva(this.reservaForm.value).subscribe(
         response => {
-          console.log('Reserva creada con éxito', response);
-          this.router.navigate(['/reservas']); // Redirige a una página de reservas, ajusta según sea necesario
+          Swal.fire('Éxito', 'Reserva creada con éxito', 'success');
+          this.router.navigate(['/reservas']); // Ajusta la ruta según sea necesario
         },
         error => {
+          Swal.fire('Error', 'Hubo un error al crear la reserva', 'error');
           console.error('Error al crear la reserva', error);
         }
       );
     } else {
-      console.log('El formulario no es válido');
+      Swal.fire('Formulario inválido', 'Por favor, completa todos los campos', 'warning');
     }
   }
 }

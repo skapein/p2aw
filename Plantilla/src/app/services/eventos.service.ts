@@ -1,53 +1,55 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IEvento } from '../interfaces/ievento'; // Asegúrate de tener esta interfaz definida
+import {IEvento  } from '../interfaces/ievento'; 
 
 @Injectable({
   providedIn: 'root'
 })
-export class EventosService {
-  apiurl = 'http://localhost/p2aw/controller/eventos.controller.php?op='; // Ajusta la URL según tu configuración
+export class EventoService {
+  private apiUrl = 'http://localhost/p2aw/controller/eventos.controller.php?op='; 
 
-  constructor(private lector: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-  // Obtener todos los eventos
-  todos(): Observable<IEvento[]> {
-    return this.lector.get<IEvento[]>(this.apiurl + 'todos');
-  }
-
-  // Obtener un evento específico por ID
-  uno(id: number): Observable<IEvento> {
-    const formData = new FormData();
-    formData.append('id', id.toString());
-    return this.lector.post<IEvento>(this.apiurl + 'uno', formData);
-  }
-
-  // Eliminar un evento
-  eliminar(id: number): Observable<number> {
-    const formData = new FormData();
-    formData.append('id', id.toString());
-    return this.lector.post<number>(this.apiurl + 'eliminar', formData);
-  }
-
-  // Insertar un nuevo evento
-  insertar(evento: IEvento): Observable<string> {
+  // Método para crear un nuevo evento
+  crearEvento(evento: IEvento): Observable<any> {
     const formData = new FormData();
     formData.append('nombre', evento.nombre);
-    formData.append('descripcion', evento.descripcion);
+    formData.append('descripcion', evento.descripcion || '');
     formData.append('fecha', evento.fecha);
     formData.append('ubicacion', evento.ubicacion);
-    return this.lector.post<string>(this.apiurl + 'insertar', formData);
+
+    return this.http.post(this.apiUrl + 'insertar', formData);
   }
 
-  // Actualizar un evento existente
-  actualizar(evento: IEvento): Observable<string> {
+  // Método para obtener todos los eventos
+  obtenerEventos(): Observable<IEvento[]> {
+    return this.http.get<IEvento[]>(this.apiUrl + 'todos');
+  }
+
+  // Método para obtener un evento por ID
+  obtenerEventoPorId(evento_id: number): Observable<IEvento> {
+    const formData = new FormData();
+    formData.append('evento_id', evento_id.toString());
+    return this.http.post<IEvento>(this.apiUrl + 'uno', formData);
+  }
+
+  // Método para actualizar un evento
+  actualizarEvento(evento: IEvento): Observable<any> {
     const formData = new FormData();
     formData.append('evento_id', evento.evento_id.toString());
     formData.append('nombre', evento.nombre);
-    formData.append('descripcion', evento.descripcion);
+    formData.append('descripcion', evento.descripcion || '');
     formData.append('fecha', evento.fecha);
     formData.append('ubicacion', evento.ubicacion);
-    return this.lector.post<string>(this.apiurl + 'actualizar', formData);
+
+    return this.http.post(this.apiUrl + 'actualizar', formData);
+  }
+
+  // Método para eliminar un evento
+  eliminarEvento(evento_id: number): Observable<any> {
+    const formData = new FormData();
+    formData.append('evento_id', evento_id.toString());
+    return this.http.post(this.apiUrl + 'eliminar', formData);
   }
 }
