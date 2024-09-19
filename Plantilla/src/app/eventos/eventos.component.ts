@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventosService } from '../services/eventos.service'; // Importar el servicio de eventos
+import { EventoService } from '../services/eventos.service'; // Importar el servicio de eventos
 import { Router } from '@angular/router'; // Importar Router para la navegación
 
 @Component({
@@ -12,7 +12,7 @@ export class EventosComponent implements OnInit {
   eventos: any[] = []; // Variable para almacenar los eventos
 
   constructor(
-    private eventosService: EventosService, // Inyectar el servicio de eventos
+    private eventosService: EventoService, // Inyectar el servicio de eventos
     private router: Router // Inyectar el Router
   ) {}
 
