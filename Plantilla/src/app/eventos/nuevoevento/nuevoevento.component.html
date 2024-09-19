@@ -1,0 +1,76 @@
+<div class="card my-5">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-end mb-4">
+        <h3 class="mb-0">
+          {{ titulo }} <!-- Título del componente -->
+        </h3>
+      </div>
+  
+      <div class="row">
+        <!-- Formulario para crear un nuevo evento -->
+        <form [formGroup]="frm_evento" novalidate (ngSubmit)="grabar()">
+          <div class="container mt-4" id="evento-form">
+            
+            <!-- Información del Evento -->
+            <div class="row">
+              <div class="col-6">
+                <h2>Nuevo Evento</h2>
+                <div class="form-group mb-3">
+                  <label for="nombre">Nombre del Evento</label>
+                  <input type="text" id="nombre" class="form-control" formControlName="nombre" />
+                  <!-- Validación de campo requerido -->
+                  <div *ngIf="frm_evento.get('nombre').invalid && frm_evento.get('nombre').touched">
+                    <small style="color: red">El nombre del evento es requerido</small>
+                  </div>
+                </div>
+  
+                <div class="form-group mb-3">
+                  <label for="descripcion">Descripción</label>
+                  <textarea id="descripcion" class="form-control" rows="3" formControlName="descripcion"></textarea>
+                </div>
+                
+                <div class="form-group mb-3">
+                  <label for="fecha">Fecha del Evento</label>
+                  <input type="date" id="fecha" class="form-control" formControlName="fecha" />
+                  <!-- Validación de campo requerido -->
+                  <div *ngIf="frm_evento.get('fecha').invalid && frm_evento.get('fecha').touched">
+                    <small style="color: red">La fecha del evento es requerida</small>
+                  </div>
+                </div>
+  
+                <div class="form-group mb-3">
+                  <label for="ubicacion">Ubicación del Evento</label>
+                  <input type="text" id="ubicacion" class="form-control" formControlName="ubicacion" />
+                  <!-- Validación de campo requerido -->
+                  <div *ngIf="frm_evento.get('ubicacion').invalid && frm_evento.get('ubicacion').touched">
+                    <small style="color: red">La ubicación del evento es requerida</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <hr />
+  
+            <!-- Detalle del Evento -->
+            <div class="row">
+              <div class="col-12">
+                <h5>Detalles del Evento</h5>
+                <p><strong>Nombre del Evento:</strong> {{ frm_evento.get('nombre').value }}</p>
+                <p><strong>Descripción:</strong> {{ frm_evento.get('descripcion').value }}</p>
+                <p><strong>Fecha:</strong> {{ frm_evento.get('fecha').value }}</p>
+                <p><strong>Ubicación:</strong> {{ frm_evento.get('ubicacion').value }}</p>
+              </div>
+            </div>
+  
+            <hr />
+  
+            <!-- Botón para grabar el evento -->
+            <div class="d-grid mt-3">
+              <button type="submit" class="btn btn-primary">Grabar Evento</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
