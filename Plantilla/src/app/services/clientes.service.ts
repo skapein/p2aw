@@ -35,7 +35,7 @@ export class ClientesService {
   actualizar(cliente: ICliente): Observable<string> {
     console.log(cliente);
     const formData = new FormData();
-    formData.append('id', cliente.id.toString());
+    formData.append('id', cliente.cliente_id.toString());
     formData.append('nombre', cliente.nombre);
     formData.append('apellido', cliente.apellido);
     formData.append('email', cliente.email);
