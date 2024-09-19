@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EventosService } from '../services/eventos.service'; // Asegúrate de tener un servicio para manejar eventos
+import { EventosService } from 'src/app/services/eventos.service'; // Asegúrate de tener un servicio para manejar eventos
 
 @Component({
   selector: 'app-nuevoevento',

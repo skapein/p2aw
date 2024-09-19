@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReservaService } from '../services/reservas.service'; // Asegúrate de que la ruta sea correcta
+import { ReservaService } from 'src/app/services/reservas.service'; // Asegúrate de que la ruta sea correcta
 import { Router } from '@angular/router';
 
 @Component({
