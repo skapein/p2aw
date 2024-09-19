@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReservaService } from '../services/reserva.service'; // Asegúrate de que la ruta sea correcta
+import { ReservaService } from '../services/reservas.service'; // Asegúrate de que la ruta sea correcta
 import { Router } from '@angular/router';
 
 @Component({

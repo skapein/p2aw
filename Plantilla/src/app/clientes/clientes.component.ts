@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { ICliente } from '../Interfaces/icliente';  // Interfaz de cliente
-import { ClientesService } from '../Services/clientes.service'; // Servicio de clientes
+import { ICliente } from '../interfaces/icliente';  // Interfaz de cliente
+import { ClientesService } from '../services/clientes.service'; // Servicio de clientes
 import Swal from 'sweetalert2';
 
 @Component({
